@@ -1,0 +1,171 @@
+﻿@model WCFClient.Models.EmployeeModel
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#add').click(function () {
+                var vals = []
+                $('.aa').each(function () {
+                    vals.push(this.name + ':' + $(this).val())
+                })
+                //string name, DateTime hiredate, decimal salary, int deptid, string address
+                console.log(vals[4], vals[2], vals[5]);
+                //$.ajax({
+                //    type: 'POST',
+                //    url: '/Home/AddEmployee',
+                //    data: { name: vals[4].text()},
+                //    cache: false,
+                //    success: function (result) {
+
+                //    }
+                //});
+            })
+
+            $('.btn-warning').click(function () {
+                var row = $(this).closest('tr');
+                $tds = row.find("td");             // Finds all children <td> elements
+
+                $.each($tds, function () {               // Visits every single <td> element
+                    console.log($(this).text());        // Prints out the text within the <td>
+                });
+
+                //$.ajax({
+                //    type: 'POST',
+                //    url: '/Home/EditEmployee',
+                //    data: { id: this.name },
+                //    cache: false,
+                //    success: function (result) {
+
+                //    }
+                //});
+            })
+
+            $('.btn-danger').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Home/DelEmployee',
+                    data: { id: this.name },
+                    cache: false,
+                    success: function (result) {
+
+                    }
+                });
+            })
+        });
+    </script>
+}
+
+@{
+    ViewBag.Title = "Employees";
+}
+
+<h2>Employees</h2>
+
+<div class="container">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 10px;">
+        Add Employee
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        @*@Html.TextBoxFor(a => a.Name)
+
+                        @Html.TextBoxFor(a => a.Salary, new { @type = "number" })
+                        @Html.ValidationMessageFor(a => a.Salary)
+
+                        @Html.*@
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.Label("Name")
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(m => m.Name)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Label("Hire Date")
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Hiredate, new { @type = "datetime" })
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(m => m.Hiredate)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Label("Salary")
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(a => a.Salary, new { @type = "number" })
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(a => a.Salary)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Label("Username")
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Deptname, new { placeholder = "HR" })
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(m => m.Deptname)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Label("Address")
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Address, new { placeholder = "123 abc ave" })
+                                </td>
+                                <td>
+                                    @Html.ValidationMessageFor(m => m.Address)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="text-align:center;">
+                                    <input type="submit" value="Submit" />
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </form>
+                    @*@foreach (var type in ViewBag.props)
+                        {
+                            <div style="margin-top: 20px; margin-bottom:20px;">
+                                @if(type.Name == "Salary")
+                                <form name="@type.Name" id="@type.Name">
+                                    <label>Enter @type.Name</label>
+                                    <input type="number" class="aa" name="@type.Name" />
+                                </form>
+
+                            </div>
+                        }*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="add">Add Employee</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @{Html.RenderPartial("EmpTbl");}
+</div>
