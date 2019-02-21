@@ -33,7 +33,8 @@ namespace WCFClient.Controllers
             EmployeeServiceClient esc = new EmployeeServiceClient();
             ViewBag.employees = esc.GetAll().ToList();
             ViewBag.props = typeof(EmployeeEnt).GetProperties().Where(a => a.Name != "ExtensionData").ToList();
-            return View();
+            EmployeeModel e = new EmployeeModel();
+            return View(e);
         }
 
         [HttpPost]

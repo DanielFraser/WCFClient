@@ -108,7 +108,7 @@
                                     @Html.Label("Hire Date")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Hiredate, new { placeholder = "02/20/2019", @type = "datetime", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Hiredate, new { placeholder = "02/20/2019", @type = "date", @class = "form-control" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(m => m.Hiredate)
@@ -155,7 +155,7 @@
                             <tr>
                                 <td></td>
                                 <td style="text-align:center;">
-                                    <input id="sub" type="submit" value="Submit" class="btn btn-primary" />
+                                    <input id="sub" type="submit" value="Submit" class="btn btn-primary" style="margin-top: 10px;"/>
                                 </td>
                                 <td></td>
                             </tr>
