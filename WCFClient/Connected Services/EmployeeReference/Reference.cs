@@ -26,7 +26,7 @@ namespace WCFClient.EmployeeReference {
         private string AddressField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int DepartmentIDField;
+        private string DepartmentNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> HiredateField;
@@ -64,14 +64,14 @@ namespace WCFClient.EmployeeReference {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int DepartmentID {
+        public string DepartmentName {
             get {
-                return this.DepartmentIDField;
+                return this.DepartmentNameField;
             }
             set {
-                if ((this.DepartmentIDField.Equals(value) != true)) {
-                    this.DepartmentIDField = value;
-                    this.RaisePropertyChanged("DepartmentID");
+                if ((object.ReferenceEquals(this.DepartmentNameField, value) != true)) {
+                    this.DepartmentNameField = value;
+                    this.RaisePropertyChanged("DepartmentName");
                 }
             }
         }

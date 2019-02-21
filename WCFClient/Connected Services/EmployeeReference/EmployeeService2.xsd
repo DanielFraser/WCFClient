@@ -9,7 +9,7 @@
   <xs:complexType name="EmployeeEnt">
     <xs:sequence>
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="DepartmentID" type="xs:int" />
+      <xs:element minOccurs="0" name="DepartmentName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Hiredate" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="ID" type="xs:int" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />

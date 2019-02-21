@@ -3,43 +3,27 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-            $('#add').click(function () {
-                var vals = []
-                $('.aa').each(function () {
-                    vals.push(this.name + ':' + $(this).val())
-                })
-                //string name, DateTime hiredate, decimal salary, int deptid, string address
-                console.log(vals[4], vals[2], vals[5]);
-                //$.ajax({
-                //    type: 'POST',
-                //    url: '/Home/AddEmployee',
-                //    data: { name: vals[4].text()},
-                //    cache: false,
-                //    success: function (result) {
-
-                //    }
-                //});
-            })
 
             $('.btn-warning').click(function () {
                 var row = $(this).closest('tr');
                 $tds = row.find("td");             // Finds all children <td> elements
+                $tds = $tds.slice(0, -1);
 
-                $.each($tds, function () {               // Visits every single <td> element
-                    console.log($(this).text());        // Prints out the text within the <td>
+                var values = []
+                $.each($tds, function () {
+                    values.push($(this).text().trim());
+                    //console.log($(this).text());
                 });
-
-                //$.ajax({
-                //    type: 'POST',
-                //    url: '/Home/EditEmployee',
-                //    data: { id: this.name },
-                //    cache: false,
-                //    success: function (result) {
-
-                //    }
-                //});
+                console.log(values);
+                $('#exampleModal').modal('show');
+                var values2 = [values[4], values[2], values[5], values[1], values[0], values[3]]
+                //for(int)
+                $('.form-control').each(function () {
+                    console.log($(this).attr('id'));
+                    $(this).val(values2.shift());
+                })
             })
-
+            
             $('.btn-danger').click(function () {
                 $.ajax({
                     type: 'POST',
@@ -47,7 +31,7 @@
                     data: { id: this.name },
                     cache: false,
                     success: function (result) {
-
+                        window.location.href = '@Url.Action("Employees", "Home")';
                     }
                 });
             })
@@ -75,20 +59,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                        @*@Html.TextBoxFor(a => a.Name)
-
-                        @Html.TextBoxFor(a => a.Salary, new { @type = "number" })
-                        @Html.ValidationMessageFor(a => a.Salary)
-
-                        @Html.*@
+                    @using (Html.BeginForm("Employees", "Home", FormMethod.Post))
+                    {
                         <table>
                             <tr>
                                 <td>
                                     @Html.Label("Name")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Name" })
+                                    @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(m => m.Name)
@@ -99,7 +78,7 @@
                                     @Html.Label("Hire Date")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Hiredate, new { @type = "datetime" })
+                                    @Html.TextBoxFor(m => m.Hiredate, new { placeholder = "02/20/2019", @type = "datetime", @class = "form-control" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(m => m.Hiredate)
@@ -110,7 +89,7 @@
                                     @Html.Label("Salary")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(a => a.Salary, new { @type = "number" })
+                                    @Html.TextBoxFor(a => a.Salary, new { placeholder = "4", @type = "number", @class = "form-control", @step = "0.01" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(a => a.Salary)
@@ -118,10 +97,10 @@
                             </tr>
                             <tr>
                                 <td>
-                                    @Html.Label("Username")
+                                    @Html.Label("Department Name")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Deptname, new { placeholder = "HR" })
+                                    @Html.TextBoxFor(m => m.Deptname, new { placeholder = "HR", @class = "form-control" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(m => m.Deptname)
@@ -132,37 +111,32 @@
                                     @Html.Label("Address")
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Address, new { placeholder = "123 abc ave" })
+                                    @Html.TextBoxFor(m => m.Address, new { placeholder = "123 abc ave", @class = "form-control" })
                                 </td>
                                 <td>
                                     @Html.ValidationMessageFor(m => m.Address)
                                 </td>
                             </tr>
-
+                            <tr style="display: none">
+                                <td>
+                                    @Html.TextBoxFor(m => m.Id, new { placeholder = "aa", @class = "form-control" })
+                                </td>
+                            </tr>
                             <tr>
                                 <td></td>
                                 <td style="text-align:center;">
-                                    <input type="submit" value="Submit" />
+                                    <input id="sub" type="submit" value="Submit" class="btn btn-primary" />
                                 </td>
                                 <td></td>
                             </tr>
                         </table>
-                    </form>
-                    @*@foreach (var type in ViewBag.props)
-                        {
-                            <div style="margin-top: 20px; margin-bottom:20px;">
-                                @if(type.Name == "Salary")
-                                <form name="@type.Name" id="@type.Name">
-                                    <label>Enter @type.Name</label>
-                                    <input type="number" class="aa" name="@type.Name" />
-                                </form>
 
-                            </div>
-                        }*@
+                    }
+                    <span style="display:none">a</span>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="add">Add Employee</button>
+                    @*<button type="button" class="btn btn-primary" id="add">Add Employee</button>*@
                 </div>
             </div>
         </div>

@@ -1,0 +1,69 @@
+﻿<table>
+    <tr>
+        <td>
+            @Html.Label("Name")
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Name, new { placeholder = "Name", @class = "form-control" })
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m => m.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Hire Date")
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Hiredate, new { placeholder = "02/20/2019", @type = "datetime", @class = "form-control" })
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m => m.Hiredate)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Salary")
+        </td>
+        <td>
+            @Html.TextBoxFor(a => a.Salary, new { placeholder = "4", @type = "number", @class = "form-control" })
+        </td>
+        <td>
+            @Html.ValidationMessageFor(a => a.Salary)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Department Name")
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Deptname, new { placeholder = "HR", @class = "form-control" })
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m => m.Deptname)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.Label("Address")
+        </td>
+        <td>
+            @Html.TextBoxFor(m => m.Address, new { placeholder = "123 abc ave", @class = "form-control" })
+        </td>
+        <td>
+            @Html.ValidationMessageFor(m => m.Address)
+        </td>
+    </tr>
+    <tr style="display: none">
+        <td>
+            @Html.TextBoxFor(m => m.Id, new { placeholder = "aa", @class = "form-control" })
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td style="text-align:center;">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </td>
+        <td></td>
+    </tr>
+</table>
