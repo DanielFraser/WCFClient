@@ -49,6 +49,10 @@ namespace WCFClient.Controllers
                 System.Diagnostics.Debug.WriteLine(e.Id);
                 e = new EmployeeModel
                 {
+                    Address = "",
+                    Deptname = "",
+                    Name = "",
+                    Salary = 0,
                     Id = -1
                 };
             }
@@ -69,12 +73,18 @@ namespace WCFClient.Controllers
             esc.DelEmployee(id);
         }
 
-        public void EditEmployee(int id, string name, DateTime hiredate, decimal salary, string deptname, string address)
+        private void EditEmployee(int id, string name, DateTime hiredate, decimal salary, string deptname, string address)
         {
             EmployeeServiceClient esc = new EmployeeServiceClient();
             EmployeeEnt e = new EmployeeEnt();
             e.GetType().GetProperties();
             esc.EditEmployee(id, name, hiredate, salary, deptname, address);
+        }
+
+        public JsonResult GetDepts(string term)
+        {
+            EmployeeServiceClient esc = new EmployeeServiceClient();
+            return Json(esc.GetDepts(term).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

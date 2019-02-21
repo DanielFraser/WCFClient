@@ -165,6 +165,12 @@ namespace WCFClient.EmployeeReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetAll", ReplyAction="http://tempuri.org/IEmployeeService/GetAllResponse")]
         System.Threading.Tasks.Task<WCFClient.EmployeeReference.EmployeeEnt[]> GetAllAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetDepts", ReplyAction="http://tempuri.org/IEmployeeService/GetDeptsResponse")]
+        string[] GetDepts(string prefix);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmployeeService/GetDepts", ReplyAction="http://tempuri.org/IEmployeeService/GetDeptsResponse")]
+        System.Threading.Tasks.Task<string[]> GetDeptsAsync(string prefix);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -224,6 +230,14 @@ namespace WCFClient.EmployeeReference {
         
         public System.Threading.Tasks.Task<WCFClient.EmployeeReference.EmployeeEnt[]> GetAllAsync() {
             return base.Channel.GetAllAsync();
+        }
+        
+        public string[] GetDepts(string prefix) {
+            return base.Channel.GetDepts(prefix);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetDeptsAsync(string prefix) {
+            return base.Channel.GetDeptsAsync(prefix);
         }
     }
 }

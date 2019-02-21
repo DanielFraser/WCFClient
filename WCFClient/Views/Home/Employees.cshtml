@@ -1,6 +1,10 @@
 ﻿@model WCFClient.Models.EmployeeModel
 
 @section scripts{
+    <link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+            crossorigin="anonymous"></script>
     <script>
         $(document).ready(function () {
 
@@ -23,7 +27,7 @@
                     $(this).val(values2.shift());
                 })
             })
-            
+
             $('.btn-danger').click(function () {
                 $.ajax({
                     type: 'POST',
@@ -34,7 +38,28 @@
                         window.location.href = '@Url.Action("Employees", "Home")';
                     }
                 });
-            })
+            });
+
+            $('#Deptname').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/GetDepts",
+                        dataType: "json",
+                        data: {
+                            term: request.term
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        }
+                    });
+                },
+                minLength: 0
+            });
+
+            $('#Deptname').autocomplete("option", "appendTo", "#exampleModal");
         });
     </script>
 }
@@ -42,8 +67,13 @@
 @{
     ViewBag.Title = "Employees";
 }
-
-<h2>Employees</h2>
+<style>
+    .ui-autocomplete {
+        position: absolute;
+        cursor: default;
+        z-index: 1001 !important
+    }
+</style>
 
 <div class="container">
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="margin-bottom: 10px;">
@@ -119,7 +149,7 @@
                             </tr>
                             <tr style="display: none">
                                 <td>
-                                    @Html.TextBoxFor(m => m.Id, new { placeholder = "aa", @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Id, new { @Value = "-1", placeholder = "aa", @class = "form-control" })
                                 </td>
                             </tr>
                             <tr>
